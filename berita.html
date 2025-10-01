@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita & Kegiatan - LPPM Institut Rakeyan Santang Karawang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #57c4e5;
+            --accent-color: #159895;
+            --dark-color: #002b5b;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .breadcrumb {
+            background: none;
+            margin-bottom: 0;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            color: white;
+        }
+
+        .breadcrumb-item.active {
+            color: white;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--primary-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* News Cards */
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .news-date {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .news-date i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 10px 0;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .news-link {
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .news-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        /* Pagination */
+        .pagination {
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .page-link {
+            color: var(--primary-color);
+            border: 1px solid #dee2e6;
+            margin: 0 3px;
+            border-radius: 5px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .page-link:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-item.active .page-link {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* News Detail Modal */
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-body img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-meta i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        .modal-meta span {
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .news-title {
+                font-size: 1.1rem;
+            }
+
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-mortarboard-fill me-2"></i>LPPM IRS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#beranda">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#tentang">Tentang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#penelitian">Penelitian</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#pengabdian">Pengabdian</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Berita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#kontak">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Berita & Kegiatan</li>
+                </ol>
+            </nav>
+            <h1 class="mt-3">Berita & Kegiatan</h1>
+            <p>Update terkini kegiatan LPPM Institut Rakeyan Santang</p>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Arsip Berita & Kegiatan</h2>
+                <p class="text-muted">Temukan informasi terkini seputar kegiatan penelitian dan pengabdian masyarakat</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="penelitian">Penelitian</button>
+                <button class="filter-btn" data-filter="pengabdian">Pengabdian</button>
+                <button class="filter-btn" data-filter="seminar">Seminar</button>
+                <button class="filter-btn" data-filter="kerjasama">Kerjasama</button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading" id="loadingSpinner">
+                <div class="loading-spinner"></div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="row" id="newsContainer" style="display: none;">
+                <!-- News Item 1 -->
+                <div class="col-md-4 news-item" data-category="seminar">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/seminar-paud/400/200" alt="Seminar PAUD" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Seminar</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 15 November 2023
+                            </div>
+                            <h5 class="news-title">Seminar Nasional Inovasi Pembelajaran PAUD</h5>
+                            <p class="news-excerpt">LPPM IRS menggelar seminar nasional dengan pembicara dari berbagai universitas ternama.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal1">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="col-md-4 news-item" data-category="pengabdian">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/pelatihan-guru/400/200" alt="Pelatihan Guru" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Pengabdian</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 10 November 2023
+                            </div>
+                            <h5 class="news-title">Pelatihan Guru SD se-Karawang</h5>
+                            <p class="news-excerpt">Tim LPPM IRS melaksanakan pelatihan untuk meningkatkan kompetensi guru sekolah dasar.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal2">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="col-md-4 news-item" data-category="seminar">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/workshop-syariah/400/200" alt="Workshop Syariah" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Seminar</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 5 November 2023
+                            </div>
+                            <h5 class="news-title">Workshop Manajemen Bisnis Syariah</h5>
+                            <p class="news-excerpt">LPPM IRS menyelenggarakan workshop untuk pelaku UMKM dalam pengelolaan bisnis syariah.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal3">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 4 -->
+                <div class="col-md-4 news-item" data-category="penelitian">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/penelitian-paud/400/200" alt="Penelitian PAUD" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Penelitian</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 1 November 2023
+                            </div>
+                            <h5 class="news-title">Hasil Penelitian Metode Pembelajaran PAUD</h5>
+                            <p class="news-excerpt">Tim peneliti LPPM IRS mempublikasikan hasil penelitian tentang metode pembelajaran inovatif untuk PAUD.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal4">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 5 -->
+                <div class="col-md-4 news-item" data-category="kerjasama">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/mou-universitas/400/200" alt="MoU Universitas" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Kerjasama</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 28 Oktober 2023
+                            </div>
+                            <h5 class="news-title">Penandatanganan MoU dengan Universitas Negeri Jakarta</h5>
+                            <p class="news-excerpt">LPPM IRS menjalin kerjasama penelitian dengan UNJ untuk pengembangan pendidikan dasar.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal5">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 6 -->
+                <div class="col-md-4 news-item" data-category="pengabdian">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/pengabdian-desa/400/200" alt="Pengabdian Desa" class="news-img">
+                        <div class="news-content">
+                            <span class="news-category">Pengabdian</span>
+                            <div class="news-date">
+                                <i class="bi bi-calendar3"></i> 25 Oktober 2023
+                            </div>
+                            <h5 class="news-title">Program Desa Pintar di Karawang Timur</h5>
+                            <p class="news-excerpt">LPPM IRS meluncurkan program Desa Pintar untuk meningkatkan kualitas pendidikan di pedesaan.</p>
+                            <a href="#" class="news-link" data-bs-toggle="modal" data-bs-target="#newsModal6">
+                                Baca Selengkapnya <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- News Detail Modals -->
+    <!-- Modal 1 -->
+    <div class="modal fade" id="newsModal1" tabindex="-1" aria-labelledby="newsModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel1">Seminar Nasional Inovasi Pembelajaran PAUD</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/seminar-paud-detail/800/400" alt="Seminar PAUD">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 15 November 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Seminar</span>
+                    </div>
+                    <p>LPPM Institut Rakeyan Santang Karawang berhasil menyelenggarakan Seminar Nasional Inovasi Pembelajaran PAUD dengan tema "Membangun Generasi Emas Melalui Pendidikan Anak Usia Dini Berkualitas". Acara yang berlangsung pada tanggal 15 November 2023 ini dihadiri oleh lebih dari 200 peserta dari berbagai instansi pendidikan se-Indonesia.</p>
+                    <p>Seminar ini menghadirkan pembicara ternama di bidang pendidikan anak usia dini, antara lain Prof. Dr. Siti Nur Azizah, M.Pd dari Universitas Negeri Jakarta, Dr. Ahmad Fauzi, M.Pd dari Universitas Pendidikan Indonesia, dan Dr. Dewi Sartika, M.Pd sebagai praktisi PAUD berpengalaman.</p>
+                    <p>Dalam seminar ini, dibahas berbagai topik penting seputar inovasi pembelajaran PAUD, mulai dari pengembangan kurikulum berbasis karakter, pemanfaatan teknologi dalam pembelajaran PAUD, hingga strategi penanganan anak berkebutuhan khusus di PAUD. Para peserta juga berkesempatan untuk berdiskusi langsung dengan pembicara dan berbagi pengalaman dalam sesi paralel.</p>
+                    <p>"Kami berharap seminar ini dapat menjadi wadah untuk berbagi pengetahuan dan pengalaman dalam mengembangkan pendidikan PAUD yang berkualitas di Indonesia," ujar Kepala LPPM Institut Rakeyan Santang, Dr. H. Ahmad Syarifuddin, M.Pd dalam sambutannya.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="newsModal2" tabindex="-1" aria-labelledby="newsModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel2">Pelatihan Guru SD se-Karawang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/pelatihan-guru-detail/800/400" alt="Pelatihan Guru">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 10 November 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Pengabdian</span>
+                    </div>
+                    <p>Dalam rangka meningkatkan kualitas pendidikan dasar di Kabupaten Karawang, LPPM Institut Rakeyan Santang menyelenggarakan pelatihan bagi guru sekolah dasar se-Karawang. Pelatihan yang berlangsung selama dua hari ini diikuti oleh 150 guru dari 50 SD negeri dan swasta.</p>
+                    <p>Pelatihan ini mengusung tema "Inovasi Pembelajaran Abad 21 untuk SD Berkualitas" dengan materi yang disampaikan oleh tim ahli dari LPPM IRS dan praktisi pendidikan. Beberapa topik yang dibahas meliputi pembelajaran berbasis STEM (Science, Technology, Engineering, and Mathematics), pengembangan literasi digital bagi siswa SD, serta strategi asesmen pembelajaran yang efektif.</p>
+                    <p>"Kami menyadari bahwa guru adalah ujung tombak dalam meningkatkan kualitas pendidikan. Melalui pelatihan ini, kami berharap dapat meningkatkan kompetensi guru dalam mengimplementasikan pembelajaran inovatif yang sesuai dengan tuntutan zaman," kata Dr. Hj. Siti Aminah, M.Pd selaku koordinator pelatihan.</p>
+                    <p>Selain pemberian materi, peserta juga melakukan praktik langsung dan simulasi pembelajaran yang dipandu oleh fasilitator. Setiap peserta juga menerima modul pelatihan dan sertifikat sebagai bukti keikutsertaan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal fade" id="newsModal3" tabindex="-1" aria-labelledby="newsModalLabel3" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel3">Workshop Manajemen Bisnis Syariah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/workshop-syariah-detail/800/400" alt="Workshop Syariah">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 5 November 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Seminar</span>
+                    </div>
+                    <p>LPPM Institut Rakeyan Santang Karawang menyelenggarakan workshop Manajemen Bisnis Syariah yang ditujukan bagi pelaku UMKM di wilayah Karawang dan sekitarnya. Workshop yang berlangsung pada tanggal 5 November 2023 ini diikuti oleh 80 peserta dari berbagai latar belakang usaha.</p>
+                    <p>Workshop ini menghadirkan narasumber kompeten di bidang ekonomi syariah, antara lain Dr. H. Abdul Rahman, M.Ec dari Fakultas Ekonomi dan Bisnis Islam UIN Syarif Hidayatullah Jakarta, serta Bapak H. Muhammad Yusuf, SE., MM sebagai praktisi bisnis syariah yang telah sukses mengembangkan usaha berbasis syariah.</p>
+                    <p>Materi yang disampaikan dalam workshop ini meliputi prinsip-prinsip dasar bisnis syariah, pengelolaan keuangan syariah untuk UMKM, strategi pemasaran produk halal, serta digitalisasi bisnis syariah di era modern. Peserta juga berkesempatan untuk konsultasi langsung dengan narasumber terkait permasalahan yang dihadapi dalam mengelola bisnis.</p>
+                    <p>"Kami berkomitmen untuk tidak hanya menghasilkan penelitian berkualitas, tetapi juga mengimplementasikannya untuk membantu masyarakat, khususnya dalam pengembangan ekonomi syariah yang berkelanjutan," ujar Dr. H. Ahmad Syarifuddin, M.Pd selaku Kepala LPPM IRS.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal fade" id="newsModal4" tabindex="-1" aria-labelledby="newsModalLabel4" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel4">Hasil Penelitian Metode Pembelajaran PAUD</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/penelitian-paud-detail/800/400" alt="Penelitian PAUD">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 1 November 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Penelitian</span>
+                    </div>
+                    <p>Tim peneliti LPPM Institut Rakeyan Santang Karawang berhasil mempublikasikan hasil penelitian tentang metode pembelajaran inovatif untuk Pendidikan Anak Usia Dini (PAUD). Penelitian yang berlangsung selama satu tahun ini dilakukan di 10 PAUD se-Kabupaten Karawang dengan melibatkan 300 anak sebagai subjek penelitian.</p>
+                    <p>Dipimpin oleh Dr. Hj. Siti Aminah, M.Pd, tim peneliti mengembangkan metode pembelajaran bernama "BERMAIN CERDAS" (Belajar, Eksplorasi, Main Interaktif, dan Asah Keterampilan). Metode ini menggabungkan pendekatan bermain dengan stimulasi kognitif, sosial emosional, dan keterampilan motorik anak secara holistik.</p>
+                    <p>Hasil penelitian menunjukkan bahwa penerapan metode BERMAIN CERDAS secara signifikan meningkatkan kemampuan kognitif anak sebesar 45%, kemampuan sosial emosional sebesar 38%, dan keterampilan motorik halus sebesar 42% dibandingkan dengan metode pembelajaran konvensional.</p>
+                    <p>"Penelitian ini merupakan bukti komitmen kami dalam mengembangkan inovasi pendidikan yang berbasis bukti (evidence-based). Kami berharap hasil penelitian ini dapat diadopsi oleh lebih banyak PAUD untuk meningkatkan kualitas pendidikan anak usia dini di Indonesia," jelas Dr. Hj. Siti Aminah.</p>
+                    <p>Hasil penelitian ini telah dipublikasikan dalam jurnal nasional terakreditasi dan akan disosialisasikan kepada guru-guru PAUD melalui serangkaian workshop yang akan diselenggarakan oleh LPPM IRS.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div class="modal fade" id="newsModal5" tabindex="-1" aria-labelledby="newsModalLabel5" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel5">Penandatanganan MoU dengan Universitas Negeri Jakarta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/mou-universitas-detail/800/400" alt="MoU Universitas">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 28 Oktober 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Kerjasama</span>
+                    </div>
+                    <p>LPPM Institut Rakeyan Santang Karawang menjalin kerjasama penelitian dengan Universitas Negeri Jakarta (UNJ) melalui penandatanganan Memorandum of Understanding (MoU) pada tanggal 28 Oktober 2023. Kerjasama ini bertujuan untuk mengembangkan penelitian di bidang pendidikan dasar dan pendidikan anak usia dini.</p>
+                    <p>Penandatanganan MoU dilakukan oleh Rektor Institut Rakeyan Santang, Prof. Dr. H. Usep Herman Suryana, M.Pd dan Rektor Universitas Negeri Jakarta, Prof. Dr. Komarudin, M.Si. Acara ini juga dihadiri oleh para pimpinan fakultas dan lembaga penelitian dari kedua institusi.</p>
+                    <p>Dalam sambutannya, Prof. Dr. H. Usep Herman Suryana menyatakan bahwa kerjasama ini merupakan langkah strategis untuk meningkatkan kualitas penelitian di Institut Rakeyan Santang. "Kami berharap melalui kerjasama ini, kami dapat belajar banyak dari UNJ yang memiliki pengalaman panjang dalam penelitian pendidikan," ujarnya.</p>
+                    <p>Beberapa poin kerjasama yang tertuang dalam MoU antara lain pertukaran peneliti, publikasi bersama, penyelenggaraan seminar nasional dan internasional, serta pengembangan program pengabdian masyarakat bersama. Kerjasama ini akan berlaku untuk jangka waktu lima tahun dan dapat diperpanjang sesuai kebutuhan.</p>
+                    <p>"Kami sangat menyambut baik kerjasama ini. UNJ terbuka untuk berkolaborasi dengan berbagai institusi dalam mengembangkan penelitian yang bermanfaat untuk masyarakat," kata Prof. Dr. Komarudin dalam sambutannya.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 -->
+    <div class="modal fade" id="newsModal6" tabindex="-1" aria-labelledby="newsModalLabel6" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newsModalLabel6">Program Desa Pintar di Karawang Timur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://picsum.photos/seed/pengabdian-desa-detail/800/400" alt="Pengabdian Desa">
+                    <div class="modal-meta">
+                        <span><i class="bi bi-calendar3"></i> 25 Oktober 2023</span>
+                        <span><i class="bi bi-person"></i> Admin LPPM</span>
+                        <span><i class="bi bi-tag"></i> Pengabdian</span>
+                    </div>
+                    <p>LPPM Institut Rakeyan Santang Karawang meluncurkan program "Desa Pintar" di Kecamatan Karawang Timur. Program ini merupakan bagian dari pengabdian masyarakat yang bertujuan untuk meningkatkan kualitas pendidikan dan pemberdayaan masyarakat di pedesaan.</p>
+                    <p>Program Desa Pintar resmi diluncurkan pada tanggal 25 Oktober 2023 di Desa Tanjungpura, Kecamatan Karawang Timur. Acara peluncuran dihadiri oleh Camat Karawang Timur, Kepala Desa Tanjungpura, serta perwakilan dari Dinas Pendidikan Kabupaten Karawang.</p>
+                    <p>Dalam sambutannya, Kepala LPPM Institut Rakeyan Santang, Dr. H. Ahmad Syarifuddin, M.Pd menjelaskan bahwa program Desa Pintar memiliki beberapa komponen utama, antara lain pelatihan untuk guru PAUD dan SD, pendampingan belajar untuk siswa, edukasi kesehatan untuk ibu hamil dan balita, serta pelatihan kewirausahaan untuk pemuda desa.</p>
+                    <p>"Kami memilih Desa Tanjungpura sebagai lokasi percontohan karena potensi dan semangat masyarakatnya yang tinggi untuk maju. Kami berharap program ini dapat menjadi model yang dapat direplikasi di desa-desa lain," kata Dr. H. Ahmad Syarifuddin.</p>
+                    <p>Program Desa Pintar akan berjalan selama satu tahun dengan melibatkan 20 dosen dan 50 mahasiswa Institut Rakeyan Santang sebagai relawan. Selain itu, LPPM IRS juga bekerja sama dengan dinas terkait dan pihak swasta untuk mendukung keberlanjutan program ini.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">LPPM Institut Rakeyan Santang</h5>
+                    <p class="mb-0">Lembaga Penelitian dan Pengabdian kepada Masyarakat<br>Institut Rakeyan Santang Karawang</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                    <p class="mt-3 mb-0">© 2023 LPPM IRS. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulate loading
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('newsContainer').style.display = 'flex';
+            }, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const newsItems = document.querySelectorAll('.news-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                newsItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        // Add animation
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.transition = 'opacity 0.5s ease';
+                            item.style.opacity = '1';
+                        }, 100);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

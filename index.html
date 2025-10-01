@@ -40,6 +40,13 @@
             font-weight: 700;
             color: var(--primary-color) !important;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
         }
 
         .nav-link {
@@ -295,6 +302,22 @@
             padding: 40px 0 20px;
         }
 
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-logo h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+
         .social-links a {
             color: white;
             font-size: 1.5rem;
@@ -340,7 +363,8 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="bi bi-mortarboard-fill me-2"></i>LPPM IRS
+                <img src="https://z-cdn-media.chatglm.cn/files/fecc391b-5d92-4069-a3f6-bac3bf3218c8_pasted_image_1759301314065.png?auth_key=1790837371-6ce2c2dba6c84f46b1c2dfc76ac481ad-0-29a5983bdd022ba6615083d69559cc57" alt="Logo LPPM Institut Rakeyan Santang">
+                LPPM IRS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -614,13 +638,15 @@
                                 <strong>Alamat</strong><br>
                                 Kampus Institut Rakeyan Santang<br>
                                 Jl. Raya Lingkar Tanjung Pura Lamaran, Plumbonsari, Karawang Timur<br>
-                                Karawang, Jawa Barat 41314</div>
+                                Karawang, Jawa Barat 41314
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="bi bi-telephone"></i>
                             <div>
                                 <strong>Telepon</strong><br>
-                                (0267) 8405570</div>
+                                (0267) 8405570
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="bi bi-envelope"></i>
@@ -664,7 +690,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="mb-3">LPPM Institut Rakeyan Santang</h5>
+                    <div class="footer-logo">
+                        <img src="https://z-cdn-media.chatglm.cn/files/fecc391b-5d92-4069-a3f6-bac3bf3218c8_pasted_image_1759301314065.png?auth_key=1790837371-6ce2c2dba6c84f46b1c2dfc76ac481ad-0-29a5983bdd022ba6615083d69559cc57" alt="Logo LPPM Institut Rakeyan Santang">
+                        <h5>LPPM Institut Rakeyan Santang</h5>
+                    </div>
                     <p class="mb-0">Lembaga Penelitian dan Pengabdian kepada Masyarakat<br>Institut Rakeyan Santang Karawang</p>
                 </div>
                 <div class="col-md-6 text-md-end">
@@ -747,5 +776,5 @@
             observer.observe(statsSection);
         }
     </script>
-
-</body></html>
+</body>
+</html>
